@@ -24,6 +24,9 @@ const Navbar = () => {
           <li>
             <Link href={"/addrooms"} className="text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Add-Room</Link>
           </li>
+          <li>
+            <Link href={"/my-listing"} className="text-sm font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">My Listings</Link>
+          </li>
         </ul>
 
         <div className="flex gap-4 ">
