@@ -2,8 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FiCheckCircle, FiClock, FiSearch, FiShield, FiStar, FiZap } from 'react-icons/fi';
+import RoomCard from './RoomCard';
 
-const Banner = () => {
+const Banner =async () => {
+   const res = await fetch("http://localhost:5000/addroom");
+  const rooms = await res.json();
+ const topRooms= rooms.slice(0,4)
+  // console.log(rooms);
+
   return (
     <div>
        <div className=' bg-slate-50 dark:bg-zinc-900/40'>
@@ -43,6 +49,20 @@ const Banner = () => {
        </div>
 
 
+  <section>
+        <div className='max-w-7xl mx-auto pb-8'>
+      <h1>All Destination</h1>
+      <div className='grid grid-cols-3 gap-5'>
+       {
+        topRooms.map(room=><RoomCard key={room._id} room={room}></RoomCard>)
+       }
+      </div>
+    </div>
+      </section>
+
+
+
+
       <section className="py-20 bg-slate-50/50 dark:bg-zinc-900/30 border-y border-slate-200 dark:border-zinc-800 ">
         <div className="container mx-auto px-4 max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -75,6 +95,10 @@ const Banner = () => {
           </div>
         </div>
       </section>
+
+
+
+    
 
 
 

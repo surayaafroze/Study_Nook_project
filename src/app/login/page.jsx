@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
   Button,
@@ -10,15 +11,43 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { div } from "motion/react-client";
+// import { div } from "motion/react-client";
 import Link from "next/link";
+// import { redirect } from "next/navigation";
+// import { Router } from "next/router";
+import { FcGoogle } from "react-icons/fc";
 import { FiBookOpen } from "react-icons/fi";
-import { GrGoogle } from "react-icons/gr";
 
-export default function SignUpPage() {
+
+export default function SignInPage() {
+
   const onSubmit = async (e) => {
-    e.preventDefault();
+     e.preventDefault();
+  console.log("SUBMIT FIRED");
+     const formData = new FormData(e.currentTarget);
+     const user = Object.fromEntries(formData.entries());
+ 
+     const email =e.target.email.value;
+    const password =e.target.password.value;
+    const { data, error } = await authClient.signIn.email({
+      email,password,
+      callbackURL:'/'
+    })
+ 
+     console.log({ data, error });
+     // console.log(user);
+ 
+    //  if (data) {
+    //   Router.push("/");
+    //  }
+   };
+
+const handelGoogleSignIn = async () => {
+  await authClient.signIn.social({
+    provider: "google",
+  });
   };
+  
 
   return (
     <div className="pb-8">
@@ -80,20 +109,22 @@ export default function SignUpPage() {
         </TextField>
 
       <div className="text-center">
-         <Button className='w-full rounded-md text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600'>
+         <Button className='w-full rounded-md text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600' type="submit">
         SignIn
        </Button>
       </div>
 
      
-      <div className="text-center"><Button  variant="outline" className='w-full flex justify-center py-2 px-4 border border-slate-200 dark:border-zinc-800 text-sm font-medium rounded-md text-slate-700 dark:text-zinc-300 bg-white dark:bg-zinc-950 hover:bg-slate-100 dark:hover:bg-zinc-800' ><GrGoogle></GrGoogle>Continue with Google</Button>
+
+      </Form>
+<div  className="text-center"><Button onClick={handelGoogleSignIn}  variant="outline" className='w-full flex justify-center py-2 px-4 border border-slate-200 dark:border-zinc-800 text-sm font-medium rounded-md text-slate-700 dark:text-zinc-300 bg-white dark:bg-zinc-950 hover:bg-slate-100 dark:hover:bg-zinc-800' ><FcGoogle></FcGoogle>Continue with Google</Button>
 </div>
  <div className="text-center mt-4">
           <Link href="/register" className="font-medium text-indigo-600 dark:text-indigo-400 hover:underline text-sm">
             Don't have an account? Register
           </Link>
         </div>
-      </Form>
+
     </Card>
     </div>
   );
