@@ -1,11 +1,13 @@
 'use client'
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { FiUsers, FiMapPin, FiWifi } from 'react-icons/fi';
 
 const RoomCard = ({ room }) => {
 
   const {
+    _id,
     roomName,
     description,
     image,
@@ -87,9 +89,11 @@ const RoomCard = ({ room }) => {
         </div>
 
         {/* BUTTON */}
+      <Link href={`/room/${_id}`}>
         <button className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-300">
           View Details
         </button>
+      </Link>
 
       </div>
     </div>
