@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function AddRoomPage() {
@@ -133,12 +134,14 @@ const addRooms = {
           </div>
 
           {/* Button */}
+          <Link href='/my-listing'>
           <button
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-lg transition"
           >
             Add Room
           </button>
+          </Link>
         </form>
       </div>
     </div>
